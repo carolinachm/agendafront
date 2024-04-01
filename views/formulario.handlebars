@@ -1,0 +1,158 @@
+<main>
+
+  <!-- A Modal -->
+  <div class="modal" id="modelPessoa">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Cabeçalho da Modal -->
+        <div class="modal-header">
+
+          <div class="pb-2 mt-4 mb-2 border-bottom">
+            <h4 class="modal-title">Cadastra Pessoa</h4>
+          </div>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Corpo da Modal -->
+        <div class="modal-body">
+          {{!-- Formulario --}}
+          <div class="container">
+             
+            <div class="row">
+              <div class="col-sm-10 offset-md-1">
+               
+                <form action="/cadastrar" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="_id" value="{{pessoa._id}}">
+                  <div class="form-group col-md-12">
+                    <input type="text" name="nome" class="form-control" placeholder="Nome da pessoa">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input type="text" name="sobrenome" class="form-control" placeholder="Sobrenome da pessoa">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input type="date" name="data_Nascimento" class="form-control" placeholder="Data de Nascimento">
+                  </div>
+                    <div class="form-group col-md-12">
+                    <input type="text" name="cpf" class="form-control" placeholder="Cpf">
+                  </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" name="email" class="form-control" placeholder="Email">
+                    </div>
+                  <div class="form-group float-right">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-database"></i>Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rodapé da Modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <!-- Adicione outros botões ou ações conforme necessário -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Listagem de produtos -->
+  <div class="container">
+    {{!--Mensagens --}}
+    {{>mensagens}}
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+      <h2>Listar Pessoas <a class="btn btn-info float-right btn-sm" href="/cadastrar" data-bs-toggle="modal"
+          data-bs-target="#modelPessoa"><i class="far fa-check-circle"></i>Cadastrar Nova Pessoa</a></h2>
+    </div>
+    <div class="row">
+      <table class="table tabela-imagem">
+        <thead class="thead-dark">
+          <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Data_Nascimento</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each pessoas}}
+          <tr>
+            <td>{{nome}}</td>
+            <td>{{sobrenome}}</td>
+            <td>{{data_Nascimento}}</td>
+            <td>{{cpf}}</td>
+              <td>{{email}}</td>
+
+            <td>
+              <a href="/pesssoa/{{this._id}}" data-bs-toggle="modal" data-bs-target="#modal{{@index}}"><i
+                  class="fa fa-edit" aria-hidden="true"></i></a>
+            </td>
+           
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+
+</main>
+
+{{!-- Gerar uma estrutura de modal para cada linha do vetor --}}
+{{#each pessoas}}
+
+{{!-- Modal --}}
+<div class="modal fade" id="modal{{@index}}" tabindex="-1" aria-labelledby="modal{{@index}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal{{@index}}">Editar - {{@index}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Formulario -->
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <form action="/editar" method="post" enctype="multipart/form-data"></form>
+
+            </div>
+            <input type="hidden" name="id" value="{{id}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="nome" class="form-control" placeholder="Nome" value="{{nome}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="sobrenome" class="form-control" placeholder="Sobrenome"
+              value="{{sobrenome}}">
+          </div>
+
+          <div class="mb-3">
+            <input type="date" name="data_Nascimento" class="form-control" placeholder="Data de nascimento" value="{{data_Nascimento}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="cpf " class="form-control" placeholder="Cpf">
+          </div>
+            <div class="mb-3">
+                <input type="text" name="email " class="form-control" placeholder="Email">
+            </div>
+          <input type="submit" class="btn btn-primary" value="Salvar">
+          <a href="/" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/each}}

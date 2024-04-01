@@ -1,0 +1,103 @@
+<main>
+  {{!--Exibir mensagem, se necessario--}}
+  {{#if semRegistros}}
+  <h1 class="pessoaNaoEncotrada">Nenhuma pessao encontrada :(</h1>
+  {{/if}}
+  <!-- Listagem de produtos -->
+  <div class="container">
+     <div class="pb-2 mt-4 mb-2 border-bottom">
+      <h2>Listar Pessoas </h2>
+    </div>
+  
+    <div class="row">
+      <table class="table tabela-imagem">
+        <thead class="thead-dark">
+          <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Data_Nascimento</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each pessoas}}
+          <tr>
+            <td>{{nome}}</td>
+            <td>{{sobremone}}</td>
+            <td>{{data_Nascimento}}</td>
+            <td>{{CPF}}</td>
+              <td>{{Email}}</td>
+            <td>
+              <a href="/pessoa/{{this.id}}" data-bs-toggle="modal" data-bs-target="#modal{{@index}}"><i
+                  class="fa fa-edit" aria-hidden="true"></i></a>
+              <a href="/remover/{{id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+           
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+
+</main>
+
+{{!-- Gerar uma estrutura de modal para cada linha do vetor --}}
+{{#each pessoas}}
+
+{{!-- Modal --}}
+<div class="modal fade" id="modal{{@index}}" tabindex="-1" aria-labelledby="modal{{@index}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal{{@index}}">Editar - {{@index}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Formulario -->
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <form action="/editar" method="post" enctype="multipart/form-data">
+                <img src="imagens/{{imagem}}" class="img-fluid">
+              </form>
+            </div>
+            <input type="hidden" name="id" value="{{id}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="nome" class="form-control" placeholder="Nome da pessoa" value="{{nome}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="sobrenome" class="form-control" placeholder="Sobrenome da pessoa"
+              value="{{sobrenome}}">
+          </div>
+
+          <div class="mb-3">
+            <input type="date" name="data_Nascimento" class="form-control" placeholder="Data de Nascimento" value="{{valor}}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="cpf" class="form-control" placeholder="Cpf">
+          </div>
+            <div class="mb-3">
+                <input type="text" name="email" class="form-control" placeholder="Email">
+            </div>
+          <input type="submit" class="btn btn-primary" value="Salvar">
+          <a href="/" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/each}}

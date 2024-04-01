@@ -1,0 +1,80 @@
+<!-- Estrutura principal -->
+<main>
+    <!-- Container -->
+    <div class="container">
+        <!-- Linha -->
+        <div class="row">
+            <!-- Laço de repetição -->
+            <!-- Estrutura das colunas e cards -->
+            {{#each pessoas}}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card">
+
+                    <div class="textos">
+                        <p>{{nome}}</p>
+                        <p>{{sobrenome}}</p>
+                        <p>{{data_Nascimento}}</p>
+                        <p>{{cpf}}</p>
+                        <p>{{email}}</p>
+
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modal{{@index}}">Alterar</button>
+                    <a href="/remover/{{id}} class='btn btn-danger btn-sm float-right'">Remover</a>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+    </div>
+</main>
+
+<!-- Gerar uma estrutura de modal para cada linha do vetor -->
+{{#each produtos}}
+<!-- Modal -->
+<div class="modal fade" id="modal{{@index}}" tabindex="-1" aria-labelledby="modal{{@index}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal{{@index}}">{{nome}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Formulario -->
+                <div class="container">
+                    <div class="row">
+                        <input type="hidden" name="codigo" value="{{produto.codigo}}">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="nome" class="form-control" placeholder="Digite o seu nome"
+                            value="{{nome}}">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="sobrenome" class="form-control" placeholder="Digite o seu sobrenome"
+                            value="{{sobrenome}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="date" name="data_Nascimento" class="form-control" placeholder="Selecione sua data de nascimento"
+                            value="{{valor}}">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="cpf" class="form-control" placeholder="Informe seu cpf">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="email" class="form-control" placeholder="Informe seu email">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Salvar">
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+</div>
+{{/each}}
